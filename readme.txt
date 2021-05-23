@@ -10,7 +10,7 @@ Fonctionnalités implémentées :
     - upvote et downvote de chaque lien
     - Commenter chaque lien
     - page de profil accessible par le logo sur la barre de navigation, affichage des liens publié 
-    - déploiment avec install.js et creation auto des compte max et bob, ainsi que de leurs lien/commentaires
+    - déploiment avec install.js et creation auto des compte max et bob, email max@test.com / bob@test.com, ainsi que de leurs lien/commentaires
 
 ------------------------
 Architecture :
