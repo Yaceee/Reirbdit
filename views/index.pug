@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        style
+            include ./style/style.css
+    body(class="login_main")
+        main
+            div(class="connexion_box")
+                h1 Connexion
+                if !good_logs
+                    h2 Les identifiants ne sont pas valides
+                form(action="/home" name="connexion", method="post", class="connexion_form")
+                    div(class="connexion_title_box")
+                        h3(class="connexion_title") Email
+                    input(type="text" name="email" class="text_input")
+                    div(class="connexion_title_box")
+                        h3(class="connexion_title") Mot de passe
+                    input(type="password" name="password" class="text_input")
+                    br
+                    input(type="submit" name="Connexion" value="Connexion" class="form_button")
+                a(href="/register" class="login_link") S'inscrire

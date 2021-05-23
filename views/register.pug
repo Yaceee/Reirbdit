@@ -1,0 +1,35 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        style
+            include ./style/style.css
+    body(class="login_main")
+        main
+            div(class="connexion_box")
+                h1 S'incrire
+                form(action="/register" name="register", method="post", class="connexion_form")
+                    div(class="connexion_title_box")
+                        h3 Identifiant
+                    input(type="text" name="name" class="text_input")
+                    div(class="connexion_title_box")
+                        h3 Email 
+                    input(type="email" name="email" class="text_input")
+                    div(class="connexion_title_box")
+                        h3 Mot de passe 
+                    input(type="password" name="password" class="text_input")
+                    div(class="connexion_title_box")
+                        h3 Confirmer le mot de passe 
+                    input(type="password" name="c_password" class="text_input")
+                    br
+                    input(type="submit" value="S'inscrire" class="form_button")
+                if e_not_empty
+                    each e in e_all
+                        p #{e} <br>
+                if validate 
+                    p Votre inscription a été validé
+                a(href="/" class="login_link") J'ai déjà un compte
+                        

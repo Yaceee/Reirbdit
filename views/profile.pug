@@ -1,0 +1,45 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous")
+        title Document
+        style
+            include ./style/style.css
+    body 
+        header(class="navbar_")
+            div(class="nav_padding")
+                a(href="/" class="navbar_home")
+                    div(class="navbar_logo_cont")
+                        img(src="/img/logo.png", alt="logo" class="navbar_logo")
+                    h3(class="vertical_center") Reirbdit
+                div(class="nav-elements")
+                    h3(class="vertical_center hello_") Hello #{login}
+                    a(href="/profil" class="vertical_center" style="margin-right : 1rem;")
+                        img(src="/img/profil_icon.png", alt="profil_icon" class="profil_icon")
+                    form(method="post" action="/disconnect" name="logout" class="vertical_center")
+                        input(type="submit" name="logout_button" value="Déconnexion" class="form_button")
+        main(class="container profil_layout")
+            div(class="profil")
+                img(src="/img/profil.png", alt="pp" class="profil_picture")
+                h2 #{login}
+            div(class="my_articles")
+                h2 Mes liens
+                each article in articles
+                    div(class="article")
+                        div(class="article_vote")
+                            form(method="post" action="/upvote/"+article.id name="upvote_"+article.id)
+                                input(type="submit" name="upvote_button_"+article.id value="+1" class="vote_button up_button "+article.vote_state)
+                            h2(class="score") #{article.score}
+                            form(method="post" action="/downvote/"+article.id name="downvote_"+article.id)
+                                input(type="submit" name="downvote_button_#{article.id}" value="-1" class="vote_button down_button "+article.vote_state)
+                        div(class="article_content_cont" id="#{article.id}")
+                            div(class="article_title_cont")
+                                a(href=article.content class="article_link" target="_blank") 
+                                    h3(class="article_title") #{article.title}
+                                a(href="/link/"+article.id)
+                                    button(class="form_button") + 
+                            p(class="article_content") #{article.content}
+                            p(class="article_info") lient publié par #{article.author}, le #{article.date_post}

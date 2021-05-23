@@ -1,0 +1,65 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous")
+        title Document
+        style
+            include ./style/style.css
+    body 
+        header(class="navbar_")
+            div(class="nav_padding")
+                a(href="/" class="navbar_home")
+                    div(class="navbar_logo_cont")
+                        img(src="/img/logo.png", alt="logo" class="navbar_logo")
+                    h3(class="vertical_center") Reirbdit
+                div(class="nav-elements")
+                    h3(class="vertical_center hello_") Hello #{login}
+                    a(href="/profil" class="vertical_center" style="margin-right : 1rem;")
+                        img(src="/img/profil_icon.png", alt="profil_icon" class="profil_icon")
+                    form(method="post" action="/disconnect" name="logout" class="vertical_center")
+                        input(type="submit" name="logout_button" value="Déconnexion" class="form_button")
+        main(class="container")
+            div(class="article")
+                div(class="article_vote")
+                    form(method="post" action="/upvote/"+article.id name="upvote_"+article.id)
+                        input(type="submit" name="upvote_button_"+article.id value="+1" class="vote_button up_button "+article.vote_state)
+                    h2(class="score") #{article.score}
+                    form(method="post" action="/downvote/"+article.id name="downvote_"+article.id)
+                        input(type="submit" name="downvote_button_#{article.id}" value="-1" class="vote_button down_button "+article.vote_state)
+                div(class="article_content_cont" id="#{article.id}")
+                    div(class="article_title_cont")
+                        a(href=article.content class="article_link" target="_blank") 
+                            h3(class="article_title") #{article.title}
+                        if edit
+                            div(class="edit_buttons")
+                                form(action="/edit_link/"+article.id method="get" name="edit_"+article.id)
+                                    div(class="edit_button_cont")
+                                        input(type="submit" name="edit_button"+article.id value="🖊️" class="edit_button")
+                                form(action="/delete_link/"+article.id method="post" name="delete_"+article.id onsubmit="return confirm('Êtes vous sûr de supprimer le lien ?');")
+                                    div(class="edit_button_cont")
+                                        input(type="submit" name="delete_button"+article.id value="🗑️" class="edit_button")
+
+                    p(class="article_content") #{article.content}
+                    p(class="article_info") lien publié par #{article.author}, le #{article.date_post}
+            
+            form(action="/add_com/"+article.id method="post" name="add_com_"+article.id)
+                textarea(name="com_content" cols="30" rows="10" class="add_com_text" placeholder="Commentaire")
+                input(type="submit" class="form_button" value="Envoyer")
+
+            each comm in comms
+                div(class="comm")
+                    div(class="article_content_cont" id="#{comm.id}")
+                        div(class="article_title_cont")
+                            p(class="article_content") #{comm.content}
+                            if comm.author == login
+                                div(class="edit_buttons")
+                                    form(action="/edit_com/"+comm.id method="get" name="edit_"+comm.id)
+                                        div(class="edit_button_cont")
+                                            input(type="submit" name="edit_button"+comm.id value="🖊️" class="edit_button")
+                                    form(action="/delete_com/"+comm.id method="post" name="delete_"+comm.id onsubmit="return confirm('Êtes vous sûr de supprimer le lien ?');")
+                                        div(class="edit_button_cont")
+                                            input(type="submit" name="delete_button"+comm.id value="🗑️" class="edit_button")
+                        p(class="article_info") lient publié par #{comm.author}, le #{comm.date_comment}
